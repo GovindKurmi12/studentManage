@@ -3,7 +3,11 @@ package com.gk.studentCrud.controller;
 import com.gk.studentCrud.model.Student;
 import com.gk.studentCrud.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.graphql.data.method.annotation.Argument;
+import org.springframework.graphql.data.method.annotation.QueryMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 import java.util.Optional;
@@ -15,23 +19,23 @@ public class StudentController {
     @Autowired
     private StudentService studentService;
 
-    @PostMapping("/create")
-    public Student createStudent(@RequestBody Student student) {
+    @QueryMapping("/create")
+    public Student createStudent(@Argument Student student) {
         return studentService.createStudent(student);
     }
 
-    @GetMapping("/get/{id}")
-    public Optional<Student> getById(@PathVariable Long id) {
+    @QueryMapping("/get")
+    public Optional<Student> getById(@Argument Long id) {
         return studentService.getById(id);
     }
 
-    @GetMapping("/getAll")
+    @QueryMapping("/getAll")
     public List<Student> getAllStudent() {
         return studentService.getAllStudent();
     }
 
-    @PostMapping("/update")
-    public Student updateStudent(@RequestBody Student student) {
+    @QueryMapping("/update")
+    public Student updateStudent(@Argument Student student) {
         return studentService.updateStudent(student);
     }
 }
